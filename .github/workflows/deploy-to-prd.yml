@@ -69,6 +69,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           # password: ${{ secrets.CR_PAT }}
 
+      - name: Build the Docker image
+        run: docker login -u huier23 -p ${{ secrets.CR_PAT }} https://ghcr.io
+
       - name: Deploy web app container
         uses: azure/webapps-deploy@v2
         with:
