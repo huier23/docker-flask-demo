@@ -67,16 +67,23 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           # password: ${{ secrets.CR_PAT }}
-          
 
-      - name: Set up Azure extension installation
-        if: success()
-        run: |
-         az config set extension.use_dynamic_install=yes_without_prompt  
-      - name: Deploy to app container
-        if: success()
-        run: |
-          az containerapp update -n ${{env.AZURE_CONTAINER_APP_NAME}} -g ${{env.AZURE_RESOURCE_GROUP}} --image ${{env.IMAGE_REGISTRY_URL}}/${{ github.repository }}/${{env.DOCKER_IMAGE_NAME}}:${{github.sha}}
+      - name: Deploy web app container
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{env.AZURE_WEBAPP_NAME}}
+          images: ${{env.IMAGE_REGISTRY_URL}}/${{ github.repository }}/${{env.DOCKER_IMAGE_NAME}}:${{ github.sha }}
+         
+
+      # - name: Set up Azure extension installation
+      #   if: success()
+      #   run: |
+      #    az config set extension.use_dynamic_install=yes_without_prompt  
+      # - name: Deploy to app container
+      #   if: success()
+      #   run: |
+      #     az containerapp update -n ${{env.AZURE_CONTAINER_APP_NAME}} -g ${{env.AZURE_RESOURCE_GROUP}} --image ${{env.IMAGE_REGISTRY_URL}}/${{ github.repository }}/${{env.DOCKER_IMAGE_NAME}}:${{github.sha}}
+      
       - name: Azure logout
         run: |
           az logout
