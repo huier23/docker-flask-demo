@@ -7,6 +7,9 @@ on:
   pull_request:
     branches: [ "master" ]
 
+permissions:
+  packages: write
+
 env:
   IMAGE_REGISTRY_URL: ghcr.io
   AZURE_RESOURCE_GROUP: rg-coding-angels-demo
@@ -28,8 +31,8 @@ jobs:
       with:
         registry: ${{ env.IMAGE_REGISTRY_URL }}
         username: ${{ github.actor }}
-        # password: ${{ secrets.GITHUB_TOKEN }}
-        password: ${{ secrets.CR_PAT }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        # password: ${{ secrets.CR_PAT }}
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
@@ -62,9 +65,10 @@ jobs:
         with:
           login-server: ${{env.IMAGE_REGISTRY_URL}}
           username: ${{ github.actor }}
-          password: ${{ secrets.CR_PAT }}
-          # password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          # password: ${{ secrets.CR_PAT }}
           
+
       - name: Set up Azure extension installation
         if: success()
         run: |
