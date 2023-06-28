@@ -12,10 +12,10 @@ permissions:
 
 env:
   IMAGE_REGISTRY_URL: ghcr.io
-  AZURE_RESOURCE_GROUP: rg-coding-angels-demo
+  AZURE_RESOURCE_GROUP: rg-gh-demo
   DOCKER_IMAGE_NAME: hello-azure
-  AZURE_CONTAINER_APP_NAME: app-coding-angels-demo
-  AZURE_WEBAPP_NAME: app-coding-angels-demi
+  AZURE_CONTAINER_APP_NAME: app-hello-azure
+  AZURE_WEBAPP_NAME: app-hello-azure
 
 
 jobs:
